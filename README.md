@@ -1,106 +1,31 @@
-Dockerized Nginx Project to GitHub
+-Deploy the Application
 
-Step 1: Set Up the Project Directory
-Create a New Directory for Your Project: Open your terminal and run the following commands:
+We will deploy the application using the AWS Free Tier as an example. 
 
-bash
+Deployment Steps :-
 
-mkdir my-nginx-app
-cd my-nginx-app
+Launch an EC2 Instance:
 
-Create a Dockerfile: In the my-nginx-app directory, create a file named Dockerfile with the following content:
+1.Go to the AWS Management Console.
+2.Navigate to the EC2 Dashboard.
+3.Click on "Launch Instance".
+4.Choose Amazon Linux 2 AMI (free tier eligible).
+5.Select the t2.micro instance type.
+6.Configure security groups to allow HTTP (port 80) and SSH (port 22) access.
+7.Launch the instance.
 
-Dockerfile
+Connect to Your EC2 Instance:
 
-# Use the official Nginx image from the Docker Hub
-FROM nginx:alpine
-
-# Copy the HTML files to the appropriate directory
-COPY ./html /usr/share/nginx/html
-
-# Expose port 80 for the web service
-EXPOSE 80
-Create an HTML Directory and a Sample HTML File:
+Use SSH to connect to your instance from your terminal:
 
 bash
 
-mkdir html
-Create index.html: In the html directory, create a file named index.html with the following content:
+ssh -i "your-key.pem" ec2-user@your-public-dns
 
-html
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Nginx Server</title>
-</head>
-<body>
-    <h1>Welcome to My Nginx Server!</h1>
-</body>
-</html>
-
-Step 2: Build the Docker Image
-
-Build the Docker Image: In the terminal, run the following command:
-bash
-
-docker build -t my-nginx-app .
-Step 3: Run the Docker Container
-Run the Docker Container: Execute the following command:
-bash
-
-docker run -d -p 8080:80 my-nginx-app
-This will run your Docker container in detached mode and map port 8080 on your host machine to port 80 in the container.
-Step 4: Accessing the Service
-Open Your Web Browser: Navigate to:
-text
-
-http://localhost:8080
-You should see a page displaying "Welcome to My Nginx Server!".
-Step 5: Documenting the Project
-Create a README.md File: In the my-nginx-app directory, create a file named README.md with the following content:
-
-markdown
-
-# My Nginx App
-
-This is a basic Dockerized Nginx server setup.
-
-## Prerequisites
-
-- Docker must be installed on your machine. 
-
-## Getting Started
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/my-nginx-app.git
-   cd my-nginx-app
-Build the Docker image:
+Install Prerequisites:
 
 bash
 
-docker build -t my-nginx-app .
-Run the Docker container:
+sudo yum update -y
+sudo amazon-linux-extras install python3
 
-bash
-
-docker run -d -p 8080:80 my-nginx-app
-Access the service: Open your browser and visit http://localhost:8080
-
-Stopping the Container
-To stop the running container, find the container ID using:
-
-bash
-
-docker ps
-Then run:
-
-bash
-
-docker stop 
-
-License
-This project is open-source.
